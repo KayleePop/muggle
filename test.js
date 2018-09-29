@@ -1,4 +1,4 @@
-const assert = require('assert').strict
+const assert = require('assert').strict || require('assert') // only use strict mode if available
 const path = require('path')
 const util = require('util')
 const exec = util.promisify(require('child_process').exec)
@@ -51,7 +51,7 @@ async function main () {
     '  ...',
     ''
   ]
-  assert.deepEqual(await runFile('throwError.js'), throwErrorExpected)
+  assert.deepStrictEqual(await runFile('throwError.js'), throwErrorExpected)
   printOk()
 
   printTest('tests should pass if execution finishes with no errors')
@@ -64,7 +64,7 @@ async function main () {
     'ok 4 - fill an array (random work)',
     ''
   ]
-  assert.deepEqual(await runFile('passing.js'), passingExpected)
+  assert.deepStrictEqual(await runFile('passing.js'), passingExpected)
   printOk()
 
   printTest('error properties should be included in the yaml error block of the TAP output')
@@ -86,7 +86,7 @@ async function main () {
     '  ...',
     ''
   ]
-  assert.deepEqual(await runFile('errorProperties.js'), errorPropertiesExpected)
+  assert.deepStrictEqual(await runFile('errorProperties.js'), errorPropertiesExpected)
   printOk()
 
   printTest('passing an error as error.expected or error.actual should output as expected')
@@ -123,7 +123,7 @@ async function main () {
     '  ...',
     ''
   ]
-  assert.deepEqual(await runFile('passErrors.js'), passErrorsExpected)
+  assert.deepStrictEqual(await runFile('passErrors.js'), passErrorsExpected)
   printOk()
 
   printTest('passing unsupported values to yaml should not throw')
