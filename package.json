@@ -1,0 +1,35 @@
+{
+  "name": "muggle-test",
+  "version": "1.0.0",
+  "description": "A testing library without magic",
+  "main": "index.js",
+  "author": "KayleePop",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kayleepop/muggle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kayleepop/muggle/issues"
+  },
+  "keywords": [
+    "TAP",
+    "test",
+    "promise",
+    "async",
+    "function",
+    "assert",
+    "error",
+    "magic"
+  ],
+  "scripts": {
+    "test": "standard && node test.js"
+  },
+  "dependencies": {
+    "js-yaml": "^3.12.0"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1",
+    "chalk": "^2.4.1"
+  }
+}
