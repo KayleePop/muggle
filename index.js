@@ -48,11 +48,11 @@ async function runTest (test) {
 
     return `ok ${test.number} - ${test.name}`
   } catch (error) {
-    const failingOutput = `not ok ${test.number} - ${test.name}\n`
+    const failingTestLine = `not ok ${test.number} - ${test.name}\n`
 
-    const yamlErrorBlock = createYamlErrorBlock(error)
+    const yamlErrorBlock = createYamlErrorBlock(error) // defined below
 
-    return failingOutput + yamlErrorBlock
+    return failingTestLine + yamlErrorBlock
   }
 }
 
@@ -71,9 +71,7 @@ function createYamlErrorBlock (error) {
   }
 
   let output = '---\n'
-
   output += encodeToYaml(errorJSON) // uses require('js-yaml').dump
-
   output += '...'
 
   // indent the entire block by 2 spaces
