@@ -32,7 +32,7 @@ module.exports = async function queueTest (testName, testCallback) {
 
     // run tests one at a time in order
     for (const test of testQueue) {
-      const testLine = await runTest(test)
+      const testLine = await runTest(test) // hoisted from below
 
       console.log(testLine)
     }
@@ -50,7 +50,7 @@ async function runTest (test) {
   } catch (error) {
     const failingTestLine = `not ok ${test.number} - ${test.name}\n`
 
-    const yamlErrorBlock = createYamlErrorBlock(error) // defined below
+    const yamlErrorBlock = createYamlErrorBlock(error) // hoisted from below
 
     return failingTestLine + yamlErrorBlock
   }
@@ -60,7 +60,7 @@ async function runTest (test) {
 // https://testanything.org/tap-version-13-specification.html#yaml-blocks
 function createYamlErrorBlock (error) {
   // Error instances can't be converted to yaml
-  const errorJSON = errorToJSON(error) // defined below
+  const errorJSON = errorToJSON(error) // hoisted from below
 
   // error.actual and error.expected might be error instances as well (assert.throws())
   if (errorJSON.expected instanceof Error) {
