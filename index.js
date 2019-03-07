@@ -48,11 +48,11 @@ async function runTest (test) {
 
     return `ok ${test.number} - ${test.name}`
   } catch (error) {
-    const failingTestLine = `not ok ${test.number} - ${test.name}\n`
+    const failingTestLine = `not ok ${test.number} - ${test.name}`
 
     const yamlErrorBlock = createYamlErrorBlock(error) // hoisted from below
 
-    return failingTestLine + yamlErrorBlock
+    return failingTestLine + '\n' + yamlErrorBlock
   }
 }
 
