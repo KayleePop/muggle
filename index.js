@@ -12,7 +12,7 @@ console.log('TAP Version 13')
 let testQueue = []
 let totalTests = 0
 
-module.exports = async function queueTest (testName, testCallback) {
+async function queueTest (testName, testCallback) {
   totalTests++
 
   const thisTestNumber = totalTests
@@ -105,4 +105,30 @@ function errorToJSON (error) {
   }
 
   return output
+}
+
+module.exports = function (testName, testCallback, opts = {}) {
+  // TAP Skip directive
+  // https://testanything.org/tap-version-13-specification.html#skipping-tests
+  if (opts.skip) {
+    const reason = typeof opts.skip === 'string'
+      ? opts.skip
+      : ''
+
+    // ignore callback
+    return queueTest(`${testName} # SKIP ${reason}`, () => {})
+  }
+
+  // TAP Todo directive
+  // https://testanything.org/tap-version-13-specification.html#todo-tests
+  if (opts.todo) {
+    const reason = typeof opts.todo === 'string'
+      ? opts.todo
+      : ''
+
+    return queueTest(`${testName} # TODO ${reason}`, testCallback)
+  }
+
+  // else
+  queueTest(testName, testCallback)
 }

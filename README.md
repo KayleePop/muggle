@@ -93,3 +93,33 @@ Muggle is compatible with any assertion library that throws an error, but [muggl
 The `name`, `message`, and `stack` properties of errors thrown in a test callback will be printed to the TAP output if they are defined.
 
 The `actual`, `expected`, and `operator` properties from an [AssertionError](https://nodejs.org/api/assert.html#assert_class_assert_assertionerror) will also be included if defined.
+
+### TAP directives
+There is also a third parameter `opts` for the [TAP todo and skip directives](https://testanything.org/tap-version-13-specification.html#directives)
+
+#### skip
+If `opts.skip` is truthy, then the test is marked as skipped in the TAP output, and the callback won't be run. If `opts.skip` is a string, then it will be output as the explanation.
+
+```js
+const test = require('muggle-test')
+
+test('3 + 2 should equal 5', () => {
+  // won't run unless window is defined
+}, { skip: window ? false : 'browser only test' })
+```
+
+#### TODO
+If `opts.todo` is truthy, then the test is marked as incomplete in the TAP output. If `opts.todo` is a string, then it will be output as the explanation. The test will run normally and output a failing test on errors, but TAP reporters won't count it as a test failure.
+
+```js
+const test = require('muggle-test')
+
+test('sum(3, 2) should equal 5', () => {
+  // incomplete function
+  function sum () {}
+
+  if (sum(3, 2) !== 5) {
+    throw new Error('sum(3, 2) !== 5')
+  }
+}, { todo: 'implement sum()' })
+```

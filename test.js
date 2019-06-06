@@ -129,4 +129,48 @@ async function main () {
   printTest('passing unsupported values to yaml should not throw')
   await runFile('yaml.js')
   printOk()
+
+  printTest('skip directive')
+  const skipExpected = [
+    'TAP Version 13',
+    '1..4',
+    'ok 1 - skip: true # SKIP ',
+    'ok 2 - skip: false',
+    'not ok 3 - skip: false failing',
+    '  ---',
+    '  name: Error',
+    '  message: penguin',
+    '  ...',
+    `ok 4 - skip: 'reason' # SKIP reason`,
+    ''
+  ]
+  assert.deepStrictEqual(await runFile('skip.js'), skipExpected)
+  printOk()
+
+  printTest('todo directive')
+  const todoExpected = [
+    'TAP Version 13',
+    '1..6',
+    'ok 1 - todo: true # TODO ',
+    'not ok 2 - todo: true failing # TODO ',
+    '  ---',
+    '  name: Error',
+    '  message: penguin',
+    '  ...',
+    'ok 3 - todo: false',
+    'not ok 4 - todo: false failing',
+    '  ---',
+    '  name: Error',
+    '  message: penguin',
+    '  ...',
+    `ok 5 - todo: 'reason' # TODO reason`,
+    `not ok 6 - todo: 'reason' failing # TODO reason`,
+    '  ---',
+    '  name: Error',
+    '  message: penguin',
+    '  ...',
+    ''
+  ]
+  assert.deepStrictEqual(await runFile('todo.js'), todoExpected)
+  printOk()
 }
