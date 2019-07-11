@@ -7,7 +7,7 @@ test('skip: true', () => {
 test('skip: false', () => {}, { skip: false })
 
 test('skip: false failing', () => {
-  let error = new Error('penguin')
+  const error = new Error('penguin')
   // the stack changes on each machine
   delete error.stack
   throw error

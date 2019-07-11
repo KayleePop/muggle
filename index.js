@@ -9,7 +9,7 @@ const sleep = (delay) => new Promise(resolve => setTimeout(resolve, delay))
 // https://testanything.org/tap-version-13-specification.html#the-version
 console.log('TAP Version 13')
 
-let testQueue = []
+const testQueue = []
 let totalTests = 0
 
 async function queueTest (testName, testCallback) {
@@ -93,7 +93,7 @@ function errorToJSON (error) {
     'stack'
   ]
 
-  let output = {}
+  const output = {}
 
   for (const key of outputKeys) {
     // ignore undefined properties
