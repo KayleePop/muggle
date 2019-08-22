@@ -18,9 +18,9 @@ test('todo: false failing', () => {
   throw error
 }, { todo: false })
 
-test(`todo: 'reason'`, () => {}, { todo: 'reason' })
+test('todo: \'reason\'', () => {}, { todo: 'reason' })
 
-test(`todo: 'reason' failing`, () => {
+test('todo: \'reason\' failing', () => {
   const error = new Error('penguin')
   // the stack changes on each machine
   delete error.stack

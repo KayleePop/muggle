@@ -154,7 +154,7 @@ async function main () {
     '  name: Error',
     '  message: penguin',
     '  ...',
-    `ok 4 - skip: 'reason' # SKIP reason`,
+    'ok 4 - skip: \'reason\' # SKIP reason',
     ''
   ]
   assert.deepStrictEqual(await runFile('skip.js'), skipExpected)
@@ -176,8 +176,8 @@ async function main () {
     '  name: Error',
     '  message: penguin',
     '  ...',
-    `ok 5 - todo: 'reason' # TODO reason`,
-    `not ok 6 - todo: 'reason' failing # TODO reason`,
+    'ok 5 - todo: \'reason\' # TODO reason',
+    'not ok 6 - todo: \'reason\' failing # TODO reason',
     '  ---',
     '  name: Error',
     '  message: penguin',

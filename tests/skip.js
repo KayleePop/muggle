@@ -1,7 +1,7 @@
 const test = require('../index.js')
 
 test('skip: true', () => {
-  console.log(`this should not be logged`)
+  console.log('this should not be logged')
 }, { skip: true })
 
 test('skip: false', () => {}, { skip: false })
@@ -13,6 +13,6 @@ test('skip: false failing', () => {
   throw error
 }, { skip: false })
 
-test(`skip: 'reason'`, () => {
-  console.log(`this should not be logged`)
+test('skip: \'reason\'', () => {
+  console.log('this should not be logged')
 }, { skip: 'reason' })
