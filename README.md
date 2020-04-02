@@ -1,6 +1,6 @@
 # Muggle
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/KayleePop/muggle.svg)](https://greenkeeper.io/)
+
 [![Travis badge](https://travis-ci.org/KayleePop/muggle.svg?branch=master)](https://travis-ci.org/KayleePop/muggle)
 [![standard badge](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![npm](https://img.shields.io/npm/v/muggle-test.svg)](https://www.npmjs.com/package/muggle-test)
