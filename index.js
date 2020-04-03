@@ -116,7 +116,8 @@ module.exports = function (testName, testCallback, opts = {}) {
       : ''
 
     // ignore callback
-    return queueTest(`${testName} # SKIP ${reason}`, () => {})
+    queueTest(`${testName} # SKIP ${reason}`, () => {})
+    return
   }
 
   // TAP Todo directive
@@ -126,7 +127,8 @@ module.exports = function (testName, testCallback, opts = {}) {
       ? opts.todo
       : ''
 
-    return queueTest(`${testName} # TODO ${reason}`, testCallback)
+    queueTest(`${testName} # TODO ${reason}`, testCallback)
+    return
   }
 
   // else
