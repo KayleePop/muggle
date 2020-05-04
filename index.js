@@ -3,38 +3,39 @@ const encodeToYaml = (json) => {
   // ignore incompatible types instead of throwing
   return yaml.dump(json, { skipInvalid: true })
 }
-const sleep = (delay) => new Promise(resolve => setTimeout(resolve, delay))
 
 // TAP version
 // https://testanything.org/tap-version-13-specification.html#the-version
 console.log('TAP Version 13')
 
-const testQueue = []
-let totalTests = 0
+const testLinePromises = []
+let numTests = 0
+let printing = false
 
-async function queueTest (testName, testCallback) {
-  totalTests++
+async function test (testName, testCallback) {
+  numTests++
 
-  const thisTestNumber = totalTests
+  testLinePromises.push(
+    runTest({
+      number: numTests,
+      name: testName,
+      callback: testCallback
+    })
+  )
 
-  testQueue.push({
-    number: thisTestNumber,
-    name: testName,
-    callback: testCallback
-  })
+  // wait a tick to make sure other tests get registered
+  await Promise.resolve()
 
-  // if 100ms pass without another test being queued, then run tests
-  await sleep(100)
-  if (thisTestNumber === totalTests) {
+  if (!printing) { // only run once
+    printing = true
+
     // TAP plan
     // https://testanything.org/tap-version-13-specification.html#the-plan
-    console.log(`1..${totalTests}`)
+    console.log(`1..${numTests}`)
 
-    // run tests one at a time in order
-    for (const test of testQueue) {
-      const testLine = await runTest(test) // hoisted from below
-
-      console.log(testLine)
+    // print tests in order as the callbacks resolve
+    for (const testLinePromise of testLinePromises) {
+      console.log(await testLinePromise)
     }
   }
 }
@@ -116,7 +117,7 @@ module.exports = function (testName, testCallback, opts = {}) {
       : ''
 
     // ignore callback
-    queueTest(`${testName} # SKIP ${reason}`, () => {})
+    test(`${testName} # SKIP ${reason}`, () => {})
     return
   }
 
@@ -127,10 +128,10 @@ module.exports = function (testName, testCallback, opts = {}) {
       ? opts.todo
       : ''
 
-    queueTest(`${testName} # TODO ${reason}`, testCallback)
+    test(`${testName} # TODO ${reason}`, testCallback)
     return
   }
 
   // else
-  queueTest(testName, testCallback)
+  test(testName, testCallback)
 }
