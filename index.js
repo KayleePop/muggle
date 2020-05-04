@@ -18,9 +18,9 @@ async function queueTest (testName, testCallback) {
   const thisTestNumber = totalTests
 
   testQueue.push({
+    number: thisTestNumber,
     name: testName,
-    callback: testCallback,
-    number: thisTestNumber
+    callback: testCallback
   })
 
   // if 100ms pass without another test being queued, then run tests
@@ -41,14 +41,14 @@ async function queueTest (testName, testCallback) {
 
 // returns TAP test line as string
 // https://testanything.org/tap-version-13-specification.html#the-test-line
-async function runTest (test) {
+async function runTest ({ number, name, callback }) {
   try {
     // catch both rejections and exceptions thanks to await
-    await test.callback()
+    await callback()
 
-    return `ok ${test.number} - ${test.name}`
+    return `ok ${number} - ${name}`
   } catch (error) {
-    const failingTestLine = `not ok ${test.number} - ${test.name}`
+    const failingTestLine = `not ok ${number} - ${name}`
 
     const yamlErrorBlock = createYamlErrorBlock(error) // hoisted from below
 
