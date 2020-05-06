@@ -73,6 +73,12 @@ test('numbers should add up to 5', async () => {
 })
 ```
 
+### Parallel
+
+Tests are run in parallel, so make sure tests don't interfere with each other by changing the same global state.
+
+This makes tests complete faster, but it's also much more predictable to keep tests seperate.
+
 ### Running tests
 To run tests simply execute the file
 
