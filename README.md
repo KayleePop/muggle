@@ -84,7 +84,7 @@ To run tests simply execute the file
 
 `$ node test.js`
 
-and pipe to your favorite tap reporter
+and pipe to your favorite tap reporter. Muggle doesn't return an error exit code on failing tests, but tap reporters will usually exit with the right code, or you can use [tap-set-exit](https://github.com/urbanairship/tap-set-exit).
 
 `$ node test.js | tap-spec`
 
@@ -93,7 +93,7 @@ To run in browser use [tape-run](https://github.com/juliangruber/tape-run)
 `$ browserify test.js | tape-run`
 
 ### Assertions
-Muggle is compatible with any assertion library that throws an error, but [muggle-assert](https://github.com/kayleepop/muggle-assert) is recommended.
+Muggle is compatible with any assertion libraries that throw an error. [muggle-assert](https://github.com/kayleepop/muggle-assert) is recommended if you don't already have a favorite, and you can also mix and match as many as you like.
 
 The `name`, `message`, and `stack` properties of errors thrown in a test callback will be printed to the TAP output if they are defined.
 
