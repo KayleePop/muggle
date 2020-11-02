@@ -29,7 +29,7 @@
     "js-yaml": "^3.12.0"
   },
   "devDependencies": {
-    "standard": "^15.0.0",
+    "standard": "^16.0.1",
     "chalk": "^4.1.0"
   }
 }
